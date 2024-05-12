@@ -12,24 +12,16 @@ import java.time.Duration;
 
 public class Driver {
 
-    private Driver() {  // Default constructor'u devre dısı bırakmak yani SingletonPattern yapmak icin kullanılıyor
+    private Driver() {  
 
     }
 
-    public static WebDriver driver;   // static olmalı cunku getDriver() ve closeDriver() methodu static
+    public static WebDriver driver;   
 
-    /*
-    Testlerimizi çalıştırdığımızda her seferinde yeni driver oluşturduğu için her test methodu
-    için yeni bir pencere(driver) açıyor. Eğer driver'a bir değer atanmamışsa yani driver==null ise
-    bir kere driver'i çalıştır diyerek bir kere if içini çalıştıracak. Ve driver artık bir kere
-    çalıştığı için ve değer atandığı için null olmayacak ve direk return edecek ve diğer
-    teslerimiz aynı pencere(driver) üzerinde çalışacak
-     */
 
-    public static WebDriver getDriver() {  // void yapmıyoruz cunku biz driver ile methodlari çalıştıracağız. Bize driver
-        // dondurmesi lazim ki, getDriver() methodundan sonra driver methodlarina ulasabilelim
+    public static WebDriver getDriver() {
 
-        if (driver == null) {               // burda driverin değeri null ise yani driver açık değilse bize driveri açsın,çalıştırsın
+        if (driver == null) {
             switch (ConfigReader.getProperty("browser")) {
                 case "chrome" :
                     driver = new ChromeDriver();
@@ -55,10 +47,10 @@ public class Driver {
 
     public static void closeDriver () {
 
-        if (driver != null) { //burasi getDriver() ile driver calistiginda driverin değeri null değildir. Yani driver açıktır.
-            // o halde test sonunda closeDriver() methodunu kullandığımızd çalışsn
+        if (driver != null) { 
+            
             driver.close();
-            driver = null; // değer olarak null atiyoruz cunku getDriver() methodunun if bodysi devreye girsin ve driver çalışsın
+            driver = null; 
 
         }
     }
